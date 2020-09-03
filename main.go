@@ -17,7 +17,9 @@ func LoadEnv() {
 }
 func main() {
     LoadEnv()
-    fmt.Println("test")
     client := recipes.NewClient(os.Getenv("STRIPE_SECRET_KEY"))
     client.Test()
+    product_id := client.CreateProduct("test_product")
+    plan_id := client.CreatePlan(2000, "test_plan", 0, product_id)
+    fmt.Println(plan_id)
 }
